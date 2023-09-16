@@ -21,6 +21,8 @@ if __name__ == '__main__':
 
     link_rows = []
     domain_rows = []
+    file_hashes_SHA1_rows = []
+    file_hashes_SHA256_rows = []
 
     for data_indicators in data:
         for indicators in data_indicators:
@@ -29,8 +31,15 @@ if __name__ == '__main__':
                     link_rows.append(indicator['indicator'])
                 elif indicator['type'] == "domain":
                     domain_rows.append(indicator['indicator'])
+                elif indicator['type'] == 'FileHash-SHA1':
+                    file_hashes_SHA1_rows.append(indicator['indicator'])
+                elif indicator['type'] == 'FileHash-SHA256':
+                    file_hashes_SHA256_rows.append(indicator['indicator'])
 
     write_in_file("malicious_domains.json", domain_rows)
     write_in_file("malicious_links.json", link_rows)
+    write_in_file("malicious_file_hashes_SHA1.json", file_hashes_SHA1_rows)
+    write_in_file("malicious_file_hashes_SHA256.json",
+                  file_hashes_SHA256_rows)
 
     spark.stop()
